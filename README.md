@@ -1,4 +1,4 @@
-# claude-status
+# ai-statusline
 
 Portable two-line status lines for [Claude Code](https://claude.com/claude-code) and
 [GitHub Copilot CLI](https://docs.github.com/copilot/how-tos/copilot-cli).
@@ -20,7 +20,7 @@ basename · `⎇` git branch + `✎` dirty flag · `✚/✖` lines added/removed
 ## Install
 
 ```bash
-git clone https://github.com/pauldx/claude-status.git
+git clone https://github.com/pauldx/ai-statusline.git
 cd claude-status
 ./install.sh        # copies script to ~/.claude/, wires settings.json (backs it up first)
 ```
