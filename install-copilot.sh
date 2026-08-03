@@ -10,7 +10,8 @@ SETTINGS="$COPILOT_DIR/settings.json"
 TARGET="$COPILOT_DIR/statusline.sh"
 
 mkdir -p "$COPILOT_DIR"
-cp "$SRC_DIR/copilot-statusline.sh" "$TARGET"
+# Install the generic statusline which auto-detects Copilot vs Claude
+cp "$SRC_DIR/statusline.sh" "$TARGET"
 chmod +x "$TARGET"
 echo "installed: $TARGET"
 

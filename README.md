@@ -28,7 +28,7 @@ cd claude-status
 For GitHub Copilot CLI:
 
 ```bash
-./install-copilot.sh  # copies copilot-statusline.sh to ~/.copilot/ and wires settings.json (backs it up first)
+./install-copilot.sh  # copies statusline.sh to ~/.copilot/ and wires settings.json (backs it up first)
 ```
 
 Auto-detection: statusline.sh now detects whether incoming JSON is from Copilot or Claude and delegates to copilot-statusline.sh when appropriate. Detection heuristics look for `.workspace`, `.allow_all_enabled`, or a `model.id` matching /copilot/i. This lets a single installed command handle both Claude Code and Copilot CLI.
