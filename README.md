@@ -1,6 +1,7 @@
 # claude-status
 
-Portable two-line statusline for [Claude Code](https://claude.com/claude-code).
+Portable two-line status lines for [Claude Code](https://claude.com/claude-code) and
+[GitHub Copilot CLI](https://docs.github.com/copilot/how-tos/copilot-cli).
 
 ```
 🤖 Fable 5 │ 🧠 ██░░░░░░ 25%  ↑50k  ↓1.2k  Σ↓5.1k │ 💰 $1.3625 │ 📁 myrepo  ⎇ main │ ✚61  ✖0
@@ -24,6 +25,16 @@ cd claude-status
 ./install.sh        # copies script to ~/.claude/, wires settings.json (backs it up first)
 ```
 
+For GitHub Copilot CLI:
+
+```bash
+./install-copilot.sh  # copies copilot-statusline.sh to ~/.copilot/ and wires settings.json (backs it up first)
+```
+
+Auto-detection: statusline.sh now detects whether incoming JSON is from Copilot or Claude and delegates to copilot-statusline.sh when appropriate. Detection heuristics look for `.workspace`, `.allow_all_enabled`, or a `model.id` matching /copilot/i. This lets a single installed command handle both Claude Code and Copilot CLI.
+
+Copilot-specific features: copilot-statusline.sh shows AI usage, elapsed session time, remote status, and the `YOLO` allow-all indicator. Use `install-copilot.sh` to wire the Copilot-specific installer; the main `install.sh` continues to install the Claude variant.
+
 ## Requirements
 
 - [jq](https://jqlang.github.io/jq/) — for parsing JSON
@@ -41,6 +52,7 @@ Works on macOS + Linux (`date` handled for both).
 
 ```bash
 ./uninstall.sh      # removes statusLine key + ~/.claude/statusline.sh
+./uninstall-copilot.sh  # removes statusLine key + ~/.copilot/statusline.sh
 ```
 
 ## How it's wired
@@ -59,6 +71,10 @@ The installer sets in `~/.claude/settings.json`:
 Claude Code pipes session JSON to the command on every render; the script parses it with
 `jq` in a single pass and prints 256-color ANSI lines. An existing custom `statusLine` is
 backed up to `settings.json.bak-statusline` and its previous command printed during install.
+
+Copilot CLI uses the same command-on-stdin pattern. Its installer updates
+`~/.copilot/settings.json` (or `$COPILOT_HOME/settings.json`) and saves the previous file as
+`settings.json.bak-statusline`.
 
 ## License
 
