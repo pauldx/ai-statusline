@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# claude-status — two-line statusline for Claude Code.
+# ai-statusline — two-line statusline for Claude Code and Copilot CLI.
 #
 # Claude Code pipes session JSON on stdin; this prints:
 #   line 1: model │ context meter │ ↑in ↓out Σ↓session │ cost │ dir ⎇ branch │ ✚/✖

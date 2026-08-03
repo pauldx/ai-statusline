@@ -1,4 +1,4 @@
-# Copilot instructions for claude-status
+# Copilot instructions for ai-statusline
 
 Build / test / lint
 - No build, test, or lint toolchain in this repo (it's a small shell script project).

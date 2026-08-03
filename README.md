@@ -21,7 +21,7 @@ basename · `⎇` git branch + `✎` dirty flag · `✚/✖` lines added/removed
 
 ```bash
 git clone https://github.com/pauldx/ai-statusline.git
-cd claude-status
+cd ai-statusline
 ./install.sh        # copies script to ~/.claude/, wires settings.json (backs it up first)
 ```
 
