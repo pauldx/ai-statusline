@@ -8,6 +8,16 @@ set -u
 set -f
 
 json=$(cat 2>/dev/null || true)
+# If input JSON looks like Copilot CLI's shape, delegate to the copilot-specific renderer.
+# Detection heuristics: presence of workspace or allow_all_enabled keys or a model.id mentioning "copilot".
+if [ -n "$json" ]; then
+    is_copilot=$(jq -r 'if (.workspace? != null) or (.allow_all_enabled? != null) or ((.model.id? // "") | test("copilot"; "i")) then "1" else "0" end' <<<"$json" 2>/dev/null || echo 0)
+    if [ "$is_copilot" = "1" ]; then
+        script_dir=$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)
+        printf '%s' "$json" | bash "$script_dir/copilot-statusline.sh"
+        exit $?
+    fi
+fi
 if [ -z "$json" ]; then
     printf '🤖 Claude'
     exit 0
