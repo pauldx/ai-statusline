@@ -9,11 +9,17 @@ set -f
 
 json=$(cat 2>/dev/null || true)
 # If input JSON looks like Copilot CLI's shape, delegate to the copilot-specific renderer.
-# Detection heuristics: presence of workspace or allow_all_enabled keys or a model.id mentioning "copilot".
+# Detection: Claude Code always sends .transcript_path, so its presence means Claude.
+# Otherwise look for Copilot-only signals (.allow_all_enabled, .ai_used, .remote,
+# .workspace, or a model.id mentioning "copilot"). Falls through to the Claude
+# renderer if copilot-statusline.sh isn't installed alongside this script.
 if [ -n "$json" ]; then
-    is_copilot=$(jq -r 'if (.workspace? != null) or (.allow_all_enabled? != null) or ((.model.id? // "") | test("copilot"; "i")) then "1" else "0" end' <<<"$json" 2>/dev/null || echo 0)
-    if [ "$is_copilot" = "1" ]; then
-        script_dir=$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)
+    is_copilot=$(jq -r 'if (.transcript_path? != null) then "0"
+        elif (.allow_all_enabled? != null) or (.ai_used? != null) or (.remote? != null)
+          or (.workspace? != null) or ((.model.id? // "") | test("copilot"; "i")) then "1"
+        else "0" end' <<<"$json" 2>/dev/null || echo 0)
+    script_dir=$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)
+    if [ "$is_copilot" = "1" ] && [ -f "$script_dir/copilot-statusline.sh" ]; then
         printf '%s' "$json" | bash "$script_dir/copilot-statusline.sh"
         exit $?
     fi

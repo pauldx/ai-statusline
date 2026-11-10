@@ -11,5 +11,5 @@ if [ -f "$SETTINGS" ]; then
     echo "statusLine removed from $SETTINGS"
 fi
 
-rm -f "$HOME/.claude/statusline.sh"
+rm -f "$HOME/.claude/statusline.sh" "$HOME/.claude/copilot-statusline.sh"
 echo "removed ~/.claude/statusline.sh"

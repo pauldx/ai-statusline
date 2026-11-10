@@ -14,6 +14,8 @@ mkdir -p "$COPILOT_DIR"
 cp "$SRC_DIR/statusline.sh" "$TARGET"
 chmod +x "$TARGET"
 echo "installed: $TARGET"
+cp "$SRC_DIR/copilot-statusline.sh" "$COPILOT_DIR/copilot-statusline.sh"
+chmod +x "$COPILOT_DIR/copilot-statusline.sh"
 
 [ -f "$SETTINGS" ] || echo '{}' > "$SETTINGS"
 cp "$SETTINGS" "$SETTINGS.bak-statusline"

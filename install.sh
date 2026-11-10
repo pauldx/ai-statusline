@@ -15,6 +15,8 @@ mkdir -p "$CLAUDE_DIR"
 cp "$SRC_DIR/statusline.sh" "$CLAUDE_DIR/statusline.sh"
 chmod +x "$CLAUDE_DIR/statusline.sh"
 echo "installed: $CLAUDE_DIR/statusline.sh"
+cp "$SRC_DIR/copilot-statusline.sh" "$CLAUDE_DIR/copilot-statusline.sh"
+chmod +x "$CLAUDE_DIR/copilot-statusline.sh"
 
 CMD='bash "$HOME/.claude/statusline.sh"'
 
